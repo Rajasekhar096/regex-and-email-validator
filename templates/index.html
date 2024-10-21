@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regex Matcher & Email Validator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            width: 50%;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        form {
+            margin-bottom: 30px;
+        }
+
+        input[type="text"], input[type="email"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .results {
+            margin-top: 20px;
+        }
+
+        .regex-form {
+            margin-top: 30px;
+        }
+
+        .email-form {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Regex Match Form -->
+        <div class="regex-form">
+            <h2>Regex Matcher</h2>
+            <form action="/regex" method="POST">
+                <input type="text" name="test_string" placeholder="Enter test string" required><br>
+                <input type="text" name="regex_pattern" placeholder="Enter regex pattern" required><br>
+                <button type="submit">Find Matches</button>
+            </form>
+            
+            <div class="results">
+                {% if matches %}
+                    <h3>Matches Found:</h3>
+                    <ul>
+                        {% for match in matches %}
+                            <li>{{ match }}</li>
+                        {% endfor %}
+                    </ul>
+                {% elif test_string %}
+                    <p>No matches found for the given regex pattern.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Email Validator Form -->
+        <div class="email-form">
+            <h2>Email Validator</h2>
+            <form action="/validate_email" method="POST">
+                <input type="email" name="email" placeholder="Enter email address" required><br>
+                <button type="submit">Validate Email</button>
+            </form>
+            
+            <div class="results">
+                {% if validation_result %}
+                    <h3>{{ validation_result }}</h3>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
